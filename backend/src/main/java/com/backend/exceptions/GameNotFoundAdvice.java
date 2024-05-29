@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class PlayerExistsAlreadyAdvice {
-
-    @ExceptionHandler(PlayerExistsAlreadyException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String PlayerExistsAlreadyHandler(PlayerExistsAlreadyException ex) {
+public class GameNotFoundAdvice {
+    @ExceptionHandler(GameNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String gameNotFoundHandler(GameNotFoundException ex) {
         return ex.getMessage();
     }
+
 }

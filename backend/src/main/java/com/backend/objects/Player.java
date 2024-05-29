@@ -7,6 +7,7 @@ import lombok.*;
 
 @Data
 @Entity
+@Table(name = "PLAYERS")
 public class Player {
     private @Id @GeneratedValue Long id;
 
