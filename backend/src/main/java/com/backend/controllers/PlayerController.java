@@ -72,7 +72,7 @@ public class PlayerController {
 
 
     @DeleteMapping("/players/{id}")
-    public ResponseEntity deletePlayer(@PathVariable Long id) {
+    public ResponseEntity<?> deletePlayer(@PathVariable Long id) {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
