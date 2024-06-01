@@ -32,4 +32,5 @@ public class Game {
         this.player1Score = player1Score;
         this.player2Score = player2Score;
     }
+
 }

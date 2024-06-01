@@ -8,6 +8,7 @@ import com.backend.exceptions.GameNotFoundException;
 import com.backend.models.GameModelAssembler;
 import com.backend.objects.Game;
 import com.backend.objects.Score;
+import com.backend.objects.Status;
 import com.backend.repositories.GameRepository;
 import com.backend.repositories.ScoreRepository;
 import org.springframework.hateoas.CollectionModel;
@@ -85,5 +86,22 @@ public class GameController {
     @DeleteMapping("/games/{id}")
     public void deleteGame(@PathVariable Long id) {
         gameRepository.deleteById(id);
+    }
+
+    @PutMapping("/games/{id}/complete")
+    public ResponseEntity<EntityModel<Game>> completeGame(@PathVariable Long id) {
+        Game updatedGame = gameRepository.findById(id)
+                .map(game -> {
+                    game.setStatus(Status.COMPLETED);
+                    return gameRepository.save(game);
+                })
+                .orElseThrow(
+                        () -> new GameNotFoundException(id)
+                );
+
+        EntityModel<Game> entityModel = assembler.toModel(updatedGame);
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
 }
